@@ -1,6 +1,8 @@
 import React, { useEffect, useReducer, useContext, useState } from "react";
 import { createContext } from "react";
 
+const endLoading = "END_LOADING";
+
 // context object instead of prop drilling
 const context = createContext();
 
@@ -13,23 +15,36 @@ const controller = {
 };
 
 //function to control useReducer states
-const reducer = (state, action) => {};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case endLoading:
+      return (controller.isLoading = false);
+  }
+};
 
 const AppContext = ({ children }) => {
   const [data, setData] = useState([]);
   const [state, dispatch] = useReducer(reducer, controller);
 
+  // fetch the data and change dependent values
   let dataFetched = async () => {
-    let response = await fetch(url);
-    let data = await response.json();
-    console.log(data);
-    setData(data);
-    dispatch({ type: "END_LOADING" });
+    try {
+      let response = await fetch(url);
+      let data = await response.json();
+      setData(data);
+      dispatch({ type: endLoading });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    dataFetched();
+  }, []);
 
   return (
     <>
-      <context.Provider value='hello'>
+      <context.Provider value={{ data }}>
         <h4>Children</h4>
         {children}
       </context.Provider>
