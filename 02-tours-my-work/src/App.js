@@ -1,19 +1,15 @@
 import React from "react";
 import { Tours } from "./Tours";
+import { Loading } from "./Loading";
 import { useGlobalContext } from "./context";
 
 const App = () => {
-  const value = useGlobalContext();
+  const { data, controller } = useGlobalContext();
+
   return (
     <>
       <main>
-        <section>
-          <h1>Our Tours</h1>
-          <hr />
-        </section>
-        <section>
-          <Tours />
-        </section>
+        <section>{controller.isLoading ? <Loading /> : <Tours />}</section>
       </main>
     </>
   );
