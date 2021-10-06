@@ -1,7 +1,8 @@
 import React from "react";
 import { useGlobalContext } from "./context";
 
-const Tour = ({ name, info, image, price }) => {
+const Tour = ({ id, name, info, image, price }) => {
+  let { deleteItem, controller, toReadMore } = useGlobalContext();
   return (
     <>
       <section>
@@ -10,9 +11,24 @@ const Tour = ({ name, info, image, price }) => {
       <section>
         <h3>{name}</h3>
         <h4>{price}</h4>
-        <p>{info}</p>
+        <p>{`${controller.isReadMore ? info : info.substring(0, 200)}...`}</p>
+        <button
+          type='button'
+          onClick={() => {
+            toReadMore(id);
+          }}
+        >
+          {controller.isReadMore ? "Read Less..." : "Read More..."}
+        </button>
       </section>
-      <button type='button'>Remove Item</button>
+      <button
+        type='button'
+        onClick={() => {
+          deleteItem(id);
+        }}
+      >
+        Remove Item
+      </button>
     </>
   );
 };
