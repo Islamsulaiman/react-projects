@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useGlobalContext } from "./context";
 
 const Tour = ({ id, name, info, image, price }) => {
   let { deleteItem, controller, toReadMore } = useGlobalContext();
+
+  let color = useRef();
+
+  const changeColor = () => {
+    color.current.style.color = "red"; // to change the color of the text when the correspoding button is pressed
+  };
   return (
     <>
       <section>
@@ -11,7 +17,9 @@ const Tour = ({ id, name, info, image, price }) => {
       <section>
         <h3>{name}</h3>
         <h4>{price}</h4>
-        <p>{`${controller.isReadMore ? info : info.substring(0, 200)}...`}</p>
+        <p ref={color} style={{ color: "black" }}>{`${
+          controller.isReadMore ? info : info.substring(0, 200)
+        }...`}</p>
         <button
           type='button'
           onClick={() => {
@@ -19,6 +27,14 @@ const Tour = ({ id, name, info, image, price }) => {
           }}
         >
           {controller.isReadMore ? "Read Less..." : "Read More..."}
+        </button>
+        <button
+          type='button'
+          onClick={() => {
+            changeColor();
+          }}
+        >
+          Change Color
         </button>
       </section>
       <button
