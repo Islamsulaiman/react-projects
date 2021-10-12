@@ -11,6 +11,7 @@ const AppProvider = ({ children }) => {
   let [loading, setLoading] = useState(true);
 
   let fetchData = useCallback(async () => {
+    setLoading(true);
     try {
       let res = await fetch(`${url}${searchTerm}`);
       let resData = await res.json();
