@@ -5,15 +5,16 @@ import { useGlobalContext } from "../context";
 
 const CocktailList = () => {
   let { cocktails } = useGlobalContext();
-  console.log(cocktails);
   return (
     <div>
       <h2>Cocktail list</h2>
       <br />
       <section>
-        {cocktails.map((drink) => {
-          return <Cocktail key={drink.id} drink={drink} />;
-        })}
+        {cocktails.length < 1
+          ? "No matching terms"
+          : cocktails.map((drink) => {
+              return <Cocktail key={drink.id} drink={drink} />;
+            })}
       </section>
     </div>
   );
