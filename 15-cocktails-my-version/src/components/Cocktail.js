@@ -12,7 +12,7 @@ const Cocktail = ({ drink }) => {
       <section>
         <div>{name}</div>
         <div>{alcohol}</div>
-        <Link to={`/cocktail:${id}`} className='btn'>
+        <Link to={`/cocktail/${id}`} className='btn'>
           Details
         </Link>
       </section>

@@ -16,11 +16,9 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/about' component={About} />
-          <Route path='/cocktail:id'>
+          <Route path='/cocktail/:id'>
             <SingleCocktail />
           </Route>
-
-          <Route path='/single:id' component={SingleCocktail} />
 
           <Route path='*' component={Error} />
         </Switch>
